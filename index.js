@@ -12,7 +12,8 @@ async function IPFSPlugin (webrun) {
 
   const shouldAutoloadEnv = process.env[AUTOLOAD_KEY] && (process.env[AUTOLOAD_KEY] !== 'false')
   const shouldAutoloadArgs = yargs.argv[AUTOLOAD_KEY] && (yargs.argv[AUTOLOAD_KEY] !== 'false')
-  const shouldAutoload = shouldAutoloadEnv || shouldAutoloadArgs
+  const shouldAutoloadMain = webrun.main && (webrun.main.toString().startsWith('ipfs:') || webrun.main.toString().startsWith('ipns'))
+  const shouldAutoload = shouldAutoloadEnv || shouldAutoloadArgs || shouldAutoloadMain
 
   let ipfs = null
 
