@@ -1,6 +1,6 @@
 {
   "name": "webrun-plugin-ipfs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A plugin for webrun that enables loading content from `ipfs://` URLs",
   "main": "index.js",
   "scripts": {
