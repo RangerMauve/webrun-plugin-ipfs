@@ -1,13 +1,22 @@
 const fs = require('fs-extra')
 const IS_WINDOWS = /^win/.test(process.platform)
+const yargs = require('yargs')
 
 const IPFS = require('ipfs')
 
-function IPFSPlugin (webrun) {
+const AUTOLOAD_KEY = 'WEBRUN_PLUGIN_IPFS_AUTOLOAD'
+
+async function IPFSPlugin (webrun) {
   const { CACHE } = webrun.options
   const { IPFSCACHE = new URL('ipfscache/', CACHE) } = webrun.options
 
+  const shouldAutoloadEnv = process.env[AUTOLOAD_KEY] && (process.env[AUTOLOAD_KEY] !== 'false')
+  const shouldAutoloadArgs = yargs.argv[AUTOLOAD_KEY] && (yargs.argv[AUTOLOAD_KEY] !== 'false')
+  const shouldAutoload = shouldAutoloadEnv || shouldAutoloadArgs
+
   let ipfs = null
+
+  if (shouldAutoload) await loadIPFS()
 
   webrun.addProtocol('ipfs:', async function getIPFSFile (url) {
     const path = url.pathname

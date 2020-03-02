@@ -26,6 +26,7 @@
   "homepage": "https://github.com/RangerMauve/webrun-plugin-ipfs#readme",
   "dependencies": {
     "fs-extra": "^8.1.0",
-    "ipfs": "^0.41.2"
+    "ipfs": "^0.41.2",
+    "yargs": "^15.1.0"
   }
 }
